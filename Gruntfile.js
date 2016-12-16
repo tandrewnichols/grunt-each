@@ -6,6 +6,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-travis-matrix');
+  grunt.loadNpmTasks('grunt-exec');
 
   grunt.initConfig({
     clean: {
@@ -23,12 +24,15 @@ module.exports = function(grunt) {
       },
       all: ['tasks/**/*.js']
     },
+    exec: {
+      codeclimate: 'npm run codeclimate'
+    },
     travisMatrix: {
       v4: {
         test: function() {
           return /^v4/.test(process.version);
         },
-        tasks: ['istanbul:unit']
+        tasks: ['istanbul:unit', 'exec:codeclimate']
       }
     },
     mochaTest: {
