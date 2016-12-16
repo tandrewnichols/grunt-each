@@ -6,8 +6,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-travis-matrix');
-  grunt.loadNpmTasks('grunt-exec');
-
 
   grunt.initConfig({
     clean: {
@@ -25,15 +23,12 @@ module.exports = function(grunt) {
       },
       all: ['tasks/**/*.js']
     },
-    exec: {
-      codeclimate: 'codeclimate-test-reporter < coverage/lcov.info'
-    },
     travisMatrix: {
       v4: {
         test: function() {
           return /^v4/.test(process.version);
         },
-        tasks: ['istanbul:unit', 'exec:codeclimate']
+        tasks: ['istanbul:unit']
       }
     },
     mochaTest: {
@@ -53,7 +48,8 @@ module.exports = function(grunt) {
           dir: 'coverage',
           simple: {
             cmd: 'cover',
-            args: ['grunt', 'mocha']
+            args: ['grunt', 'mocha'],
+            rawArgs: ['--', '--color']
           }
         }
       }
