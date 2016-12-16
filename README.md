@@ -24,7 +24,7 @@ Alternatively, install [task-master](http://github.com/tandrewnichols/task-maste
 
 ### Overview
 
-In your project's Gruntfile, add a section named `each` to the data object passed into `grunt.initConfig()`. The `each` task is a multitask. For each target you define, specify a list of files in any of the normal grunt formats, and under options, add an `actions` property. This can be a function, a string (corresponding a to a module to require), or an array combining functions and strings. If an action is a string, `grunt-each` will attempt to require a module with that name and use that as the action. This allows actions to be published for reuse or to be abstracted to separate files when they are long or require testing or are used elsewhere in the codebase. Functions (or modules referenced by string) can be either sync or async. Synchronous actions are passed a file object with properties `name`, `contents`, and `origContents` and should return the modified contents. Asynchronous actions are passed the same file object, as well as a callback which accepts an optional error and the modified contents. Actions are composed in reverse, so that the `contents` property of the second action will be the return value (or callback value) of the first action (`origContent` will always be the unmodified originally content . . . I mean, unless you mess with it, that is).
+In your project's Gruntfile, add a section named `each` to the data object passed into `grunt.initConfig()`. The `each` task is a multitask. For each target you define, specify a list of files in any of the normal grunt formats, and under options, add an `actions` property. This can be a function, a string (corresponding a to a module to require), or an array combining functions and strings. If an action is a string, `grunt-each` will attempt to require a module with that name and use that as the action. This allows actions to be published for reuse or to be abstracted to separate files when they are long or require testing or are used elsewhere in the codebase. Functions (or modules referenced by string) can be either sync or async. Synchronous actions are passed a file object with properties `name`, `contents`, and `origContents` and should return the modified contents. Asynchronous actions are passed the same file object, as well as a callback which accepts an optional error and the modified contents. Actions are composed in reverse, so that the `contents` property of the file in the second action will be the return value (or callback value) of the first action.
 
 ### Examples
 
@@ -59,6 +59,9 @@ module.exports = function(grunt) {
         dest: 'dest/'
         options: {
           actions: ['./actions/split', function(file) {
+            // Assuming ./actions/split does the same thing as the action in
+            // each.split, the output of this composition will be the second
+            // word in the file reversed.
             return file.contents.split('').reverse().join('');
           }]
         }
