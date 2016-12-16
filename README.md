@@ -24,7 +24,63 @@ Alternatively, install [task-master](http://github.com/tandrewnichols/task-maste
 
 ### Overview
 
-In your project's Gruntfile, add a section named `each` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `each` to the data object passed into `grunt.initConfig()`. For each target, specify a list of files in any of the normal grunt formats, and under options, add an `actions` property. This can be a function, a string (corresponding a to a module to require), or an array combining functions and strings. If an action is a string, `grunt-each` will attempt to require a module with that name and use that as the action. This allows actions to be published for reuse or to be abstracted to separate files when they are long or require testing or are used elsewhere in the codebase. Functions (or modules referenced by string) can be either sync or async. Synchronous actions are passed a file object with properties name, contents, and origContents and should return the modified contents. Asynchronous actions are passed the same file object, as well as a callback which accepts an optional error and the modified contents. Actions are composed in reverse, so that the `contents` property of the second action will be the return value (or callback value) of the first action.
+
+### Examples
+
+```js
+module.exports = function(grunt) {
+  grunt.loadNpmTasks('grunt-each');
+
+  grunt.initConfig({
+    each: {
+      // Single function
+      split: {
+        src: 'src/**/*.txt',
+        dest: 'dest/',
+        options: {
+          // Synchronous action signature
+          actions: function(file) {
+            return file.contents.split(' ')[1]; 
+          }
+        }
+      },
+      // Single string
+      splitString: {
+        src: 'src/**/*.txt',
+        dest: 'dest/'
+        options: {
+          actions: './actions/split'
+        }
+      },
+      // Array combining these
+      reverse: {
+        src: 'src/**/*.txt',
+        dest: 'dest/'
+        options: {
+          actions: ['./actions/split', function(file) {
+            return file.contents.split('').reverse().join('');
+          }]
+        }
+      },
+      async: {
+        src: 'src/**/*.txt',
+        dest: 'dest/'
+        options: {
+          // Asynchronous action signature
+          actions: [function(file, cb) {
+            doSomethingAsync(file.contents, function(newStuff) {
+              cb(null, newStuff);
+            });
+          }]
+        }
+      }
+    }
+  });
+};
+```
+
+See the tests for extensive examples.
 
 ## Contributing
 
