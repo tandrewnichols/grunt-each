@@ -1,8 +1,8 @@
 language: node_js
 sudo: false
 addons:
-    code_climate:
-        repo_token: 5454ddcc127e2576769824c6702cae24336ebc3419d20850464aa03ed697ccee
+  code_climate:
+    repo_token: 5454ddcc127e2576769824c6702cae24336ebc3419d20850464aa03ed697ccee
 install:
   - "npm install npm -g"
   - "npm install"

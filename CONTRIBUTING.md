@@ -68,4 +68,4 @@ Please write tests for any added feature or bug fix. I use coffeescript for test
 
 ## Commits and Git History
 
-I actually don't care much about commit message formatting or keeping a clean history via squashes. Obviously, if you _want_ to do those things, go for the gold. In general, I think a commit message should be atomic (which is to say, if you need to use the word "and," then it should be two commits), should summarize the changes in the commit, and should use present tense, as in "Fix bug" (not "Fixed" or "Fixes"). 
+I actually don't care much about commit message formatting or keeping a clean history via squashes. Obviously, if you _want_ to do those things, I won't stop you. In general, I think a commit message should be atomic (which is to say, if you need to use the word "and," then it should be two commits) because this makes both reverting and bisecting easier. They should also summarize the changes in the commit and should use the present tense, as in "Fix bug" (not "Fixed" or "Fixes").

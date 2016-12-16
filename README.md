@@ -26,7 +26,6 @@ Alternatively, install [task-master](http://github.com/tandrewnichols/task-maste
 
 In your project's Gruntfile, add a section named `each` to the data object passed into `grunt.initConfig()`.
 
-
 ## Contributing
 
 Please see [the contribution guidelines](CONTRIBUTING.md).
