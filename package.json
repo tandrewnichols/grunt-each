@@ -43,7 +43,7 @@
     "chalk": "^2.0.0",
     "fs-extra": "^4.0.0",
     "lodash": "^4.17.2",
-    "pluralize": "^5.0.0"
+    "pluralize": "^6.0.0"
   },
   "devDependencies": {
     "codeclimate-test-reporter": "^0.4.0",
